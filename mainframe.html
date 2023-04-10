@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Guess the number game</title>
+    <link rel="stylesheet" href="appereance.css">
+  </head>
+  <body>
+    <h1 style="font-size: 25px; font-family: Arial; margin-bottom: 0px; margin-top: 0px; margin-left: 25px; font-weight: bold;">
+      Number Guessing Game
+    </h1>
+
+    <p style="font-family: Arial; font-weight: bold; font-size: 20px; margin-bottom: 5px;">Hints:</p>
+    <p style="font-family: Arial; font-size: 15px; margin-top: 0px;">Even: <span class="hint-even"></span></p>
+    <p style="font-family: Arial; font-size: 15px; margin-top: 15px; text-align: left;">Multiple of 1.5: <span class="hint-multiple"></span></p>
+    <p style="font-family: Arial; font-size: 15px; margin-top: 15px; text-align: left;">Greater than 10: <span class="hint-greater"></span></p>
+    <p style="font-family: Arial; font-weight: bold; font-size: 20px; margin-top: 25px; text-align: left;">Attempts: <span class="attempts"></span></p>
+
+
+    <input type="text" name="guessbar" id="guessbar" class="guessbar">
+
+    <input type="button" id="random" value="Guess" style="font-family: Arial;">
+
+    <label for="random" id="randomlabel"></label>
+
+    <script>
+      var randomnumber = Math.floor(Math.random() * 15) + 1;
+      var attempts = 2
+      var guessbar = document.getElementById('guessbar');
+      var label = document.getElementById('randomlabel');
+      var hinteven = document.getElementsByClassName('hint-even')[0];
+      var hintmultiple = document.getElementsByClassName('hint-multiple')[0];
+      var hintgreater = document.getElementsByClassName('hint-greater')[0];
+      var Attempts = document.getElementsByClassName('attempts')[0];
+
+      const EVENNUMBERS = [2, 4, 6, 8, 10, 12, 14,];
+
+      window.onload = function() {
+        Attempts.innerHTML = '2';
+        if (EVENNUMBERS.indexOf(randomnumber) !== -1) {
+          hinteven.innerHTML = 'Yes'
+        } else {
+          hinteven.innerHTML = 'No'
+
+        }
+        
+        if (randomnumber % 1.5 === 0) {
+          hintmultiple.innerHTML = 'Yes'
+        } else {
+          hintmultiple.innerHTML = 'No'
+        }
+      };
+      if(randomnumber > 10){
+        hintgreater.innerHTML = 'Yes'
+      } else{
+        hintgreater.innerHTML = 'No'
+      }
+
+      document.getElementById('random').addEventListener('click', function() {
+        if (guessbar.value == randomnumber) {
+          label.innerHTML = 'Well done';
+        } else {
+          label.innerHTML = 'Try again';
+          attempts -= 1;
+          Attempts.innerHTML = attempts;
+          if( attempts == 0){
+            label.innerHTML = 'You ran out of tries, the number will now change.';
+           window.location.reload()
+            
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
